@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OkL-GP-cnB">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Statistics-->
+        <scene sceneID="LXa-Ps-5rw">
+            <objects>
+                <viewController id="ovy-DF-Acl" customClass="StatisticsViewController" customModule="telegram_charts" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N5Y-fm-EFY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="AZZ-Rm-GUX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChartView" rowHeight="397" id="KwF-o1-KfD" customClass="ChartView" customModule="telegram_charts" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="397"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KwF-o1-KfD" id="5z6-B3-nYf">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="396.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1qC-B4-mHb">
+                                                    <rect key="frame" x="0.0" y="20" width="375" height="304.5"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xy-jJ-edm" customClass="CanvasView" customModule="telegram_charts" customModuleProvider="target">
+                                                            <rect key="frame" x="20" y="0.0" width="335" height="304.5"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="4xy-jJ-edm" secondAttribute="trailing" constant="20" symbolic="YES" id="7t3-mv-MKr"/>
+                                                        <constraint firstAttribute="bottom" secondItem="4xy-jJ-edm" secondAttribute="bottom" id="cL9-kv-Rhc"/>
+                                                        <constraint firstItem="4xy-jJ-edm" firstAttribute="top" secondItem="1qC-B4-mHb" secondAttribute="top" id="prd-KJ-sqd"/>
+                                                        <constraint firstItem="4xy-jJ-edm" firstAttribute="leading" secondItem="1qC-B4-mHb" secondAttribute="leading" constant="20" symbolic="YES" id="x8v-9l-oXt"/>
+                                                    </constraints>
+                                                </view>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8a-Mv-3eS">
+                                                    <rect key="frame" x="0.0" y="332.5" width="375" height="44"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FM-Z4-m6Y" customClass="PrimaryCanvasView" customModule="telegram_charts" customModuleProvider="target">
+                                                            <rect key="frame" x="20" y="0.0" width="335" height="44"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="2FM-Z4-m6Y" secondAttribute="bottom" id="BZh-fZ-Odo"/>
+                                                        <constraint firstAttribute="height" constant="44" id="Tcu-PN-3l4"/>
+                                                        <constraint firstAttribute="trailing" secondItem="2FM-Z4-m6Y" secondAttribute="trailing" constant="20" symbolic="YES" id="frJ-42-kZi"/>
+                                                        <constraint firstItem="2FM-Z4-m6Y" firstAttribute="leading" secondItem="M8a-Mv-3eS" secondAttribute="leading" constant="20" symbolic="YES" id="irn-Ua-68K"/>
+                                                        <constraint firstItem="2FM-Z4-m6Y" firstAttribute="top" secondItem="M8a-Mv-3eS" secondAttribute="top" id="lB9-en-eo9"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="M8a-Mv-3eS" secondAttribute="trailing" id="8yS-d2-baf"/>
+                                                <constraint firstItem="M8a-Mv-3eS" firstAttribute="leading" secondItem="5z6-B3-nYf" secondAttribute="leading" id="DVz-Oo-GFy"/>
+                                                <constraint firstItem="1qC-B4-mHb" firstAttribute="leading" secondItem="5z6-B3-nYf" secondAttribute="leading" id="UVo-mP-2V0"/>
+                                                <constraint firstItem="M8a-Mv-3eS" firstAttribute="top" secondItem="1qC-B4-mHb" secondAttribute="bottom" constant="8" symbolic="YES" id="ZKd-AS-obF"/>
+                                                <constraint firstItem="1qC-B4-mHb" firstAttribute="top" secondItem="5z6-B3-nYf" secondAttribute="top" constant="20" symbolic="YES" id="tbT-jR-gGb"/>
+                                                <constraint firstAttribute="trailing" secondItem="1qC-B4-mHb" secondAttribute="trailing" id="x1f-md-BBc"/>
+                                                <constraint firstAttribute="bottom" secondItem="M8a-Mv-3eS" secondAttribute="bottom" constant="20" symbolic="YES" id="zP2-9H-ikj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="primaryCanvas" destination="2FM-Z4-m6Y" id="nSn-rv-rul"/>
+                                            <outlet property="secondaryCanvas" destination="4xy-jJ-edm" id="Wt7-SD-d2x"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LegendItemView" id="FpQ-U4-Z1m" customClass="LegendItemView" customModule="telegram_charts" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="452.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FpQ-U4-Z1m" id="O3O-59-pMe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="AZZ-Rm-GUX" firstAttribute="leading" secondItem="N5Y-fm-EFY" secondAttribute="leading" id="7QN-jU-PCI"/>
+                            <constraint firstItem="AZZ-Rm-GUX" firstAttribute="top" secondItem="N5Y-fm-EFY" secondAttribute="top" id="7rG-fo-TJk"/>
+                            <constraint firstAttribute="trailing" secondItem="AZZ-Rm-GUX" secondAttribute="trailing" id="8qN-S3-hn5"/>
+                            <constraint firstAttribute="bottom" secondItem="AZZ-Rm-GUX" secondAttribute="bottom" id="UoR-6v-Gff"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="klC-Sy-Zok"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Statistics" id="lOf-xp-Ox4"/>
+                    <connections>
+                        <outlet property="tableView" destination="AZZ-Rm-GUX" id="ZiY-kN-vZe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SBH-to-RCE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="876" y="74.212893553223395"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2ZV-88-8Zb">
+            <objects>
+                <navigationController id="OkL-GP-cnB" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yi5-b4-96m">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ovy-DF-Acl" kind="relationship" relationship="rootViewController" id="5GU-Y8-qFi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BnZ-dv-Qhe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5" y="76"/>
+        </scene>
+    </scenes>
+</document>
