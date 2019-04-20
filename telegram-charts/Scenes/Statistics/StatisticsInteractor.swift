@@ -21,7 +21,7 @@ protocol LegendItemDelegate {
     func legendItemViewGotTapEvent(chartId: String)
 }
 
-protocol StatisticsInteractorDelegate: NSObjectProtocol {
+protocol StatisticsPresenterProtocol: NSObjectProtocol {
     func present(chartObjects: [ChartObject])
     func present(chartObject: ChartObject)
     func scale(primaryCanvasShapesBy id: String, animated: Bool)
@@ -30,14 +30,14 @@ protocol StatisticsInteractorDelegate: NSObjectProtocol {
 }
 
 class StatisticsInteractor: NSObject {
-    private weak var delegate: StatisticsInteractorDelegate?
+    let presenter: StatisticsPresenterProtocol
     let throttler = Throttler(minimumDelay: 0.1)
     
     let chartObjectSource: ChartObjectSourceProtocol = ChartObjectSource()
     let chartObjectRepository: ChartObjectRepositoryProtocol = ChartObjectRepository()
     
-    init(delegate: StatisticsInteractorDelegate) {
-        self.delegate = delegate
+    init(presenter: StatisticsPresenterProtocol) {
+        self.presenter = presenter
         super.init()
     }
 }
@@ -49,18 +49,18 @@ extension StatisticsInteractor: StatisticsViewDelegate {
                 self.chartObjectRepository.save(chartObject)
             }
         } catch {
-            self.delegate?.presentAlert(about: error)
+            self.presenter.presentAlert(about: error)
             return
         }
         let chartObjects = self.chartObjectRepository.getAllObjects()
-        self.delegate?.present(chartObjects: chartObjects)
+        self.presenter.present(chartObjects: chartObjects)
     }
     
     func chartViewDidLayoutSubViews(chartId: String) {
         if let chartObject = self.chartObjectRepository.getObject(by: chartId) {
-            self.delegate?.present(chartObject: chartObject)
-            self.delegate?.scale(primaryCanvasShapesBy: chartId, animated: false)
-            self.delegate?.scale(secondaryCanvasShapesBy: chartId, animated: false)
+            self.presenter.present(chartObject: chartObject)
+            self.presenter.scale(primaryCanvasShapesBy: chartId, animated: false)
+            self.presenter.scale(secondaryCanvasShapesBy: chartId, animated: false)
         }
     }
 }
@@ -69,7 +69,7 @@ extension StatisticsInteractor: ChartViewDelegate {
     func chartViewDidChangeSelection(chartId: String) {
         self.throttler.execute {
             [weak self] in
-            self?.delegate?.scale(secondaryCanvasShapesBy: chartId, animated: true)
+            self?.presenter.scale(secondaryCanvasShapesBy: chartId, animated: true)
         }
     }
 }
@@ -77,7 +77,7 @@ extension StatisticsInteractor: ChartViewDelegate {
 
 extension StatisticsInteractor: LegendItemDelegate {
     func legendItemViewGotTapEvent(chartId: String) {
-        self.delegate?.scale(primaryCanvasShapesBy: chartId, animated: true)
-        self.delegate?.scale(secondaryCanvasShapesBy: chartId, animated: true)
+        self.presenter.scale(primaryCanvasShapesBy: chartId, animated: true)
+        self.presenter.scale(secondaryCanvasShapesBy: chartId, animated: true)
     }
 }

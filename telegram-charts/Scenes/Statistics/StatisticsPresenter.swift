@@ -25,7 +25,7 @@ protocol ChartViewProtocol: NSObjectProtocol {
 }
 
 class StatisticsPresenter: NSObject {
-    weak var statisticsView: StatisticsViewProtocol?
+    weak var statisticsView: StatisticsViewProtocol!
     
     init(statisticsView: StatisticsViewProtocol) {
         self.statisticsView = statisticsView
@@ -33,22 +33,22 @@ class StatisticsPresenter: NSObject {
     }
 }
 
-extension StatisticsPresenter: StatisticsInteractorDelegate {
+extension StatisticsPresenter: StatisticsPresenterProtocol {
     func presentAlert(about error: Error) {
         if let error = error as? ChartDataError {
             switch error {
             case .fileCouldNotBeLocated(let fileName):
-                self.statisticsView?.presentAlert(
+                self.statisticsView.presentAlert(
                     "Unable to load the chart data",
                     message: "\"\(fileName)\" could not be located"
                 )
             case .urlCanNotBeRead(let url):
-                self.statisticsView?.presentAlert(
+                self.statisticsView.presentAlert(
                     "Unable to load the chart data",
                     message: "Can't read \"\(url)\""
                 )
             case .unsupportedDataFormat(let url):
-                self.statisticsView?.presentAlert(
+                self.statisticsView.presentAlert(
                     "Unable to load the chart data",
                     message: "Unsupported format of \"\(url)\""
                 )
@@ -57,9 +57,6 @@ extension StatisticsPresenter: StatisticsInteractorDelegate {
     }
     
     func present(chartObjects: [ChartObject]) {
-        guard let viewModel = self.statisticsView?.viewModel else {
-            return
-        }
         for chartObjectIndex in 0..<chartObjects.count {
             let chartObject = chartObjects[chartObjectIndex]
             let chart = StatisticsViewModel.Chart(
@@ -76,19 +73,17 @@ extension StatisticsPresenter: StatisticsInteractorDelegate {
             )
             chart.selectorRightOffset = 0
             chart.selectorLeftOffset = UIScreen.main.bounds.width - 150
-            viewModel.charts.append(chart)
+            self.statisticsView.viewModel.charts.append(chart)
         }
-        self.statisticsView?.updateAllSections()
+        self.statisticsView.updateAllSections()
     }
     
     func present(chartObject: ChartObject) {
-        guard let viewModel = self.statisticsView?.viewModel else {
-            return
-        }
+        let viewModel = self.statisticsView.viewModel
         guard let section = (viewModel.charts.firstIndex { $0.id == chartObject.id }) else {
             return
         }
-        guard let chartView = self.statisticsView?.chartView(at: section) else {
+        guard let chartView = self.statisticsView.chartView(at: section) else {
             return
         }
         let primaryCanvasSize = chartView.primaryCanvasSize
@@ -138,17 +133,15 @@ extension StatisticsPresenter: StatisticsInteractorDelegate {
         }
         viewModel.charts[section].primaryCanvasPaths = primaryCanvasPaths
         viewModel.charts[section].secondaryCanvasPaths = secondaryCanvasPaths
-        self.statisticsView?.update(chartViewShapesAt: section)
+        self.statisticsView.update(chartViewShapesAt: section)
     }
     
     func scale(primaryCanvasShapesBy id: String, animated: Bool) {
-        guard let viewModel = self.statisticsView?.viewModel else {
-            return
-        }
+        let viewModel = self.statisticsView.viewModel
         guard let section = (viewModel.charts.firstIndex { $0.id == id }) else {
             return
         }
-        guard let chartView = self.statisticsView?.chartView(at: section) else {
+        guard let chartView = self.statisticsView.chartView(at: section) else {
             return
         }
         let primaryCanvasSize = chartView.primaryCanvasSize
@@ -180,13 +173,11 @@ extension StatisticsPresenter: StatisticsInteractorDelegate {
     }
     
     func scale(secondaryCanvasShapesBy id: String, animated: Bool) {
-        guard let viewModel = self.statisticsView?.viewModel else {
-            return
-        }
+        let viewModel = self.statisticsView.viewModel
         guard let section = (viewModel.charts.firstIndex { $0.id == id }) else {
             return
         }
-        guard let chartView = self.statisticsView?.chartView(at: section) else {
+        guard let chartView = self.statisticsView.chartView(at: section) else {
             return
         }
         let secondaryCanvasSize = chartView.secondaryCanvasSize
