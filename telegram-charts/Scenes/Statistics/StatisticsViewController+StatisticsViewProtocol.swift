@@ -24,6 +24,13 @@ extension StatisticsViewController: StatisticsViewProtocol {
     }
     
     func update(chartViewShapesAt section: Int) {
-        (self.tableView.cellForRow(at: IndexPath(item: 0, section: section)) as? ChartView)?.bind(to: self.viewModel.charts[section], delegate: self.delegate)
+        (
+            self.tableView.cellForRow(
+                at: IndexPath(item: 0, section: section)
+            ) as? ChartView
+        )?.bind(
+            to: self.viewModel.charts[section],
+            delegate: self.delegate
+        )
     }
 }
