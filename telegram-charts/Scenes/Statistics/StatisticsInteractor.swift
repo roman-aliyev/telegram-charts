@@ -12,16 +12,16 @@ enum StatisticsInteractorError {
     case loadDataError(innerError: Error)
 }
 
-protocol StatisticsViewDelegate {
+protocol StatisticsViewDelegate: NSObjectProtocol {
     func viewDidLoad()
-    func chartViewDidLayoutSubViews(chartId: String)
 }
 
-protocol ChartViewDelegate {
+protocol ChartViewDelegate: NSObjectProtocol {
+    func chartViewDidLayoutSubViews(chartId: String)
     func chartViewDidChangeSelection(chartId: String)
 }
 
-protocol LegendItemDelegate {
+protocol LegendItemDelegate: NSObjectProtocol {
     func legendItemViewGotTapEvent(chartId: String)
 }
 
@@ -59,7 +59,9 @@ extension StatisticsInteractor: StatisticsViewDelegate {
         let chartObjects = self.chartObjectRepository.getAllObjects()
         self.presenter.present(chartObjects: chartObjects)
     }
-    
+}
+
+extension StatisticsInteractor: ChartViewDelegate {
     func chartViewDidLayoutSubViews(chartId: String) {
         if let chartObject = self.chartObjectRepository.getObject(by: chartId) {
             self.presenter.present(chartObject: chartObject)
@@ -67,9 +69,7 @@ extension StatisticsInteractor: StatisticsViewDelegate {
             self.presenter.scale(secondaryCanvasShapesBy: chartId, animated: false)
         }
     }
-}
-
-extension StatisticsInteractor: ChartViewDelegate {
+    
     func chartViewDidChangeSelection(chartId: String) {
         self.throttler.execute {
             [weak self] in

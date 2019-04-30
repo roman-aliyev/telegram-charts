@@ -12,7 +12,6 @@ import CoreGraphics
 protocol StatisticsViewProtocol: NSObjectProtocol {
     var viewModel: StatisticsViewModel { get }
     func updateAllSections()
-    func presentAlert(_ title: String, message: String)
     func update(chartViewShapesAt section: Int)
     func chartView(at section: Int) -> ChartViewProtocol?
 }
@@ -25,9 +24,11 @@ protocol ChartViewProtocol: NSObjectProtocol {
 }
 
 class StatisticsPresenter: NSObject {
+    weak var router: RouteToAlert!
     weak var statisticsView: StatisticsViewProtocol!
     
-    init(statisticsView: StatisticsViewProtocol) {
+    init(router: RouteToAlert, statisticsView: StatisticsViewProtocol) {
+        self.router = router
         self.statisticsView = statisticsView
         super.init()
     }
@@ -39,22 +40,22 @@ extension StatisticsPresenter: StatisticsPresenterProtocol {
         case .loadDataError(let innerError):
             switch innerError {
             case ChartDataError.fileCouldNotBeLocated(let fileName):
-                self.statisticsView.presentAlert(
+                self.router.presentAlert(
                     "Unable to load the chart data",
                     message: "\"\(fileName)\" could not be located"
                 )
             case ChartDataError.urlCanNotBeRead(let url):
-                self.statisticsView.presentAlert(
+                self.router.presentAlert(
                     "Unable to load the chart data",
                     message: "Can't read \"\(url)\""
                 )
             case ChartDataError.unsupportedDataFormat(let url):
-                self.statisticsView.presentAlert(
+                self.router.presentAlert(
                     "Unable to load the chart data",
                     message: "Unsupported format of \"\(url)\""
                 )
             default:
-                self.statisticsView.presentAlert(
+                self.router.presentAlert(
                     "Unable to load the chart data",
                     message: "The application encountered an unexpected error"
                 )

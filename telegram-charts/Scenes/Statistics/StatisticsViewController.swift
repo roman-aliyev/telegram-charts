@@ -8,18 +8,16 @@
 
 import UIKit
 
-class StatisticsViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
+class StatisticsViewController: UIViewController, RouteToAlert {
+    @IBOutlet var statisticsView: StatisticsView!
     
-    let viewModel = StatisticsViewModel()
     lazy var delegate: StatisticsViewDelegate & ChartViewDelegate & LegendItemDelegate = StatisticsInteractor(
-        presenter: StatisticsPresenter(statisticsView: self)
+        presenter: StatisticsPresenter(router: self, statisticsView: self.statisticsView)
     )
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.statisticsView.delegate = self.delegate
         self.delegate.viewDidLoad()
     }
 }
