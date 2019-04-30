@@ -34,23 +34,29 @@ class StatisticsPresenter: NSObject {
 }
 
 extension StatisticsPresenter: StatisticsPresenterProtocol {
-    func presentAlert(about error: Error) {
-        if let error = error as? ChartDataError {
-            switch error {
-            case .fileCouldNotBeLocated(let fileName):
+    func presentAlert(about error: StatisticsInteractorError) {
+        switch error {
+        case .loadDataError(let innerError):
+            switch innerError {
+            case ChartDataError.fileCouldNotBeLocated(let fileName):
                 self.statisticsView.presentAlert(
                     "Unable to load the chart data",
                     message: "\"\(fileName)\" could not be located"
                 )
-            case .urlCanNotBeRead(let url):
+            case ChartDataError.urlCanNotBeRead(let url):
                 self.statisticsView.presentAlert(
                     "Unable to load the chart data",
                     message: "Can't read \"\(url)\""
                 )
-            case .unsupportedDataFormat(let url):
+            case ChartDataError.unsupportedDataFormat(let url):
                 self.statisticsView.presentAlert(
                     "Unable to load the chart data",
                     message: "Unsupported format of \"\(url)\""
+                )
+            default:
+                self.statisticsView.presentAlert(
+                    "Unable to load the chart data",
+                    message: "The application encountered an unexpected error"
                 )
             }
         }

@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum StatisticsInteractorError {
+    case loadDataError(innerError: Error)
+}
+
 protocol StatisticsViewDelegate {
     func viewDidLoad()
     func chartViewDidLayoutSubViews(chartId: String)
@@ -26,7 +30,7 @@ protocol StatisticsPresenterProtocol: NSObjectProtocol {
     func present(chartObject: ChartObject)
     func scale(primaryCanvasShapesBy id: String, animated: Bool)
     func scale(secondaryCanvasShapesBy id: String, animated: Bool)
-    func presentAlert(about error: Error)
+    func presentAlert(about error: StatisticsInteractorError)
 }
 
 class StatisticsInteractor: NSObject {
@@ -49,7 +53,7 @@ extension StatisticsInteractor: StatisticsViewDelegate {
                 self.chartObjectRepository.save(chartObject)
             }
         } catch {
-            self.presenter.presentAlert(about: error)
+            self.presenter.presentAlert(about: .loadDataError(innerError: error))
             return
         }
         let chartObjects = self.chartObjectRepository.getAllObjects()
