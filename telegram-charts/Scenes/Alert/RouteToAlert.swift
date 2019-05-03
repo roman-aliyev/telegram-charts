@@ -8,12 +8,20 @@
 
 import UIKit
 
-protocol RouteToAlert where Self: UIViewController { }
+protocol RouteToAlertProtocol: NSObjectProtocol {
+    func presentAlert(_ title: String, message: String)
+}
 
-extension RouteToAlert {
+class RouteToAlert: NSObject, RouteToAlertProtocol {
+    weak var source: UIViewController?
+    
+    init(from source: UIViewController) {
+        self.source = source
+    }
+    
     func presentAlert(_ title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
+        self.source?.present(alertController, animated: true, completion: nil)
     }
 }

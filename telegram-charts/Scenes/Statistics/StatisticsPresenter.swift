@@ -24,11 +24,14 @@ protocol ChartViewProtocol: NSObjectProtocol {
 }
 
 class StatisticsPresenter: NSObject {
-    weak var router: RouteToAlert!
+    let routeToAlert: RouteToAlertProtocol
     weak var statisticsView: StatisticsViewProtocol!
     
-    init(router: RouteToAlert, statisticsView: StatisticsViewProtocol) {
-        self.router = router
+    init(
+        routeToAlert: RouteToAlertProtocol,
+        statisticsView: StatisticsViewProtocol
+    ) {
+        self.routeToAlert = routeToAlert
         self.statisticsView = statisticsView
         super.init()
     }
@@ -40,22 +43,22 @@ extension StatisticsPresenter: StatisticsPresenterProtocol {
         case .loadDataError(let innerError):
             switch innerError {
             case ChartDataError.fileCouldNotBeLocated(let fileName):
-                self.router.presentAlert(
+                self.routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "\"\(fileName)\" could not be located"
                 )
             case ChartDataError.urlCanNotBeRead(let url):
-                self.router.presentAlert(
+                self.routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "Can't read \"\(url)\""
                 )
             case ChartDataError.unsupportedDataFormat(let url):
-                self.router.presentAlert(
+                self.routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "Unsupported format of \"\(url)\""
                 )
             default:
-                self.router.presentAlert(
+                self.routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "The application encountered an unexpected error"
                 )
