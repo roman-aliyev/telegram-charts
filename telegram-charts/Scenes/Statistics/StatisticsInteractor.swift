@@ -13,7 +13,7 @@ enum StatisticsInteractorError {
 }
 
 protocol StatisticsViewDelegate: NSObjectProtocol {
-    func viewDidLoad()
+    func viewWillAppear(wasAppearedBefore: Bool)
 }
 
 protocol ChartViewDelegate: NSObjectProtocol {
@@ -47,7 +47,8 @@ class StatisticsInteractor: NSObject {
 }
 
 extension StatisticsInteractor: StatisticsViewDelegate {
-    func viewDidLoad() {
+    func viewWillAppear(wasAppearedBefore: Bool) {
+        guard !wasAppearedBefore else { return }
         do {
             for chartObject in try self.chartObjectSource.load(resourceName: "chart_data") {
                 self.chartObjectRepository.save(chartObject)

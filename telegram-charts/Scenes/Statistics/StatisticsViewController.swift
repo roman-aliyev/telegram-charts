@@ -11,16 +11,17 @@ import UIKit
 class StatisticsViewController: UIViewController {
     @IBOutlet var statisticsView: StatisticsView!
     
-    lazy var delegate: StatisticsViewDelegate & ChartViewDelegate & LegendItemDelegate = StatisticsInteractor(
-        presenter: StatisticsPresenter(
-            routeToAlert: RouteToAlert(from: self),
-            statisticsView: self.statisticsView
-        )
-    )
+    var delegate: StatisticsViewDelegate!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.statisticsView.delegate = self.delegate
-        self.delegate.viewDidLoad()
+    var wasAppearedBefore = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.delegate.viewWillAppear(wasAppearedBefore: self.wasAppearedBefore)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.wasAppearedBefore = true
     }
 }

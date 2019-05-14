@@ -12,14 +12,13 @@ class StatisticsView: UIView {
     let viewModel = StatisticsViewModel()
     @IBOutlet private weak var tableView: UITableView!
     
-    weak var delegate: (ChartViewDelegate & LegendItemDelegate)!
+    var delegate: (ChartViewDelegate & LegendItemDelegate)!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
-    
 }
 
 extension StatisticsView: UITableViewDelegate {

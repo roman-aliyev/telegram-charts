@@ -19,6 +19,7 @@
 		3071185A22392C7E009E9413 /* StatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3071185922392C7E009E9413 /* StatisticsPresenter.swift */; };
 		3071185E22392FC8009E9413 /* StatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3071185D22392FC8009E9413 /* StatisticsInteractor.swift */; };
 		30711861223976EE009E9413 /* ChartObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30711860223976EE009E9413 /* ChartObject.swift */; };
+		30889FBF228B18E30056BFA1 /* StatisticsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30889FBE228B18E30056BFA1 /* StatisticsBuilder.swift */; };
 		3095783B2237F083008C861E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3095783A2237F083008C861E /* AppDelegate.swift */; };
 		3095783D2237F083008C861E /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3095783C2237F083008C861E /* StatisticsViewController.swift */; };
 		309578422237F084008C861E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 309578412237F084008C861E /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		3071185922392C7E009E9413 /* StatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPresenter.swift; sourceTree = "<group>"; };
 		3071185D22392FC8009E9413 /* StatisticsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsInteractor.swift; sourceTree = "<group>"; };
 		30711860223976EE009E9413 /* ChartObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartObject.swift; sourceTree = "<group>"; };
+		30889FBE228B18E30056BFA1 /* StatisticsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsBuilder.swift; sourceTree = "<group>"; };
 		309578372237F083008C861E /* telegram-charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "telegram-charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3095783A2237F083008C861E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3095783C2237F083008C861E /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				302BC64B2238062700E621A9 /* StatisticsViewModel.swift */,
 				3071185922392C7E009E9413 /* StatisticsPresenter.swift */,
 				3071185D22392FC8009E9413 /* StatisticsInteractor.swift */,
+				30889FBE228B18E30056BFA1 /* StatisticsBuilder.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				3071185E22392FC8009E9413 /* StatisticsInteractor.swift in Sources */,
 				30ED0AF5223BE751006B7DED /* ChartView.swift in Sources */,
 				30435BE022425C8B00684A7A /* ChartData.swift in Sources */,
+				30889FBF228B18E30056BFA1 /* StatisticsBuilder.swift in Sources */,
 				3095783B2237F083008C861E /* AppDelegate.swift in Sources */,
 				3043E68422455A5E00E461FB /* PrimaryCanvasView.swift in Sources */,
 				3071185A22392C7E009E9413 /* StatisticsPresenter.swift in Sources */,
