@@ -13,7 +13,7 @@ enum StatisticsInteractorError {
 }
 
 protocol StatisticsViewDelegate: NSObjectProtocol {
-    func viewWillAppear(wasAppearedBefore: Bool)
+    func viewWillAppear(initially: Bool)
 }
 
 protocol ChartViewDelegate: NSObjectProtocol {
@@ -47,18 +47,19 @@ class StatisticsInteractor: NSObject {
 }
 
 extension StatisticsInteractor: StatisticsViewDelegate {
-    func viewWillAppear(wasAppearedBefore: Bool) {
-        guard !wasAppearedBefore else { return }
-        do {
-            for chartObject in try self.chartObjectSource.load(resourceName: "chart_data") {
-                self.chartObjectRepository.save(chartObject)
+    func viewWillAppear(initially: Bool) {
+        if initially {
+            do {
+                for chartObject in try self.chartObjectSource.load(resourceName: "chart_data") {
+                    self.chartObjectRepository.save(chartObject)
+                }
+            } catch {
+                self.presenter.presentAlert(about: .loadDataError(innerError: error))
+                return
             }
-        } catch {
-            self.presenter.presentAlert(about: .loadDataError(innerError: error))
-            return
+            let chartObjects = self.chartObjectRepository.getAllObjects()
+            self.presenter.present(chartObjects: chartObjects)
         }
-        let chartObjects = self.chartObjectRepository.getAllObjects()
-        self.presenter.present(chartObjects: chartObjects)
     }
 }
 

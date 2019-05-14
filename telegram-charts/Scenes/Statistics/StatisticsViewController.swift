@@ -17,7 +17,7 @@ class StatisticsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.delegate.viewWillAppear(wasAppearedBefore: self.wasAppearedBefore)
+        self.delegate.viewWillAppear(initially: !self.wasAppearedBefore)
     }
     
     override func viewDidAppear(_ animated: Bool) {
