@@ -13,15 +13,15 @@ protocol RouteToAlertProtocol: NSObjectProtocol {
 }
 
 class RouteToAlert: NSObject, RouteToAlertProtocol {
-    weak var source: UIViewController?
+    weak var presentingViewController: UIViewController?
     
-    init(from source: UIViewController) {
-        self.source = source
+    init(from presentingViewController: UIViewController) {
+        self.presentingViewController = presentingViewController
     }
     
     func presentAlert(_ title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.source?.present(alertController, animated: true, completion: nil)
+        self.presentingViewController?.present(alertController, animated: true, completion: nil)
     }
 }
