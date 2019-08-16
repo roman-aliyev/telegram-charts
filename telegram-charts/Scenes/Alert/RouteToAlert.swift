@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol RouteToAlertProtocol: NSObjectProtocol {
+protocol RouteToAlertProtocol {
     func presentAlert(_ title: String, message: String)
 }
 
-class RouteToAlert: NSObject, RouteToAlertProtocol {
+class RouteToAlert: RouteToAlertProtocol {
     weak var presentingViewController: UIViewController?
     
     init(from presentingViewController: UIViewController) {

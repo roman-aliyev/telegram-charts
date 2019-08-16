@@ -9,21 +9,21 @@
 import UIKit
 import CoreGraphics
 
-protocol StatisticsViewProtocol: NSObjectProtocol {
+protocol StatisticsViewProtocol: class {
     var viewModel: StatisticsViewModel { get }
     func updateAllSections()
     func update(chartViewShapesAt section: Int)
     func chartView(at section: Int) -> ChartViewProtocol?
 }
 
-protocol ChartViewProtocol: NSObjectProtocol {
+protocol ChartViewProtocol {
     var primaryCanvasSize: CGSize { get }
     var secondaryCanvasSize: CGSize { get }
     func transformPrimaryCanvasShapes(animated: Bool)
     func transformSecondaryCanvasShapes(animated: Bool)
 }
 
-class StatisticsPresenter: NSObject {
+class StatisticsPresenter {
     let routeToAlert: RouteToAlertProtocol
     weak var statisticsView: StatisticsViewProtocol!
     
@@ -33,7 +33,6 @@ class StatisticsPresenter: NSObject {
     ) {
         self.routeToAlert = routeToAlert
         self.statisticsView = statisticsView
-        super.init()
     }
 }
 

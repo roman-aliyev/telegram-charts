@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StatisticsBuilder: NSObject {
+class StatisticsBuilder {
     func build() -> StatisticsViewController {
         let statisticsViewController = UIStoryboard(name: "Statistics", bundle: nil).instantiateInitialViewController() as! StatisticsViewController
         statisticsViewController.loadViewIfNeeded()

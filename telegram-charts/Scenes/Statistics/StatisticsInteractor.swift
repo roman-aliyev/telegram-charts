@@ -12,20 +12,20 @@ enum StatisticsInteractorError {
     case loadDataError(innerError: Error)
 }
 
-protocol StatisticsViewDelegate: NSObjectProtocol {
+protocol StatisticsViewDelegate {
     func viewWillAppear(initially: Bool)
 }
 
-protocol ChartViewDelegate: NSObjectProtocol {
+protocol ChartViewDelegate {
     func chartViewDidLayoutSubViews(chartId: String)
     func chartViewDidChangeSelection(chartId: String)
 }
 
-protocol LegendItemDelegate: NSObjectProtocol {
+protocol LegendItemDelegate {
     func legendItemViewGotTapEvent(chartId: String)
 }
 
-protocol StatisticsPresenterProtocol: NSObjectProtocol {
+protocol StatisticsPresenterProtocol {
     func present(chartObjects: [ChartObject])
     func present(chartObject: ChartObject)
     func scale(primaryCanvasShapesBy id: String, animated: Bool)
@@ -33,7 +33,7 @@ protocol StatisticsPresenterProtocol: NSObjectProtocol {
     func presentAlert(about error: StatisticsInteractorError)
 }
 
-class StatisticsInteractor: NSObject {
+class StatisticsInteractor {
     let presenter: StatisticsPresenterProtocol
     let throttler = Throttler(minimumDelay: 0.1)
     
@@ -42,7 +42,6 @@ class StatisticsInteractor: NSObject {
     
     init(presenter: StatisticsPresenterProtocol) {
         self.presenter = presenter
-        super.init()
     }
 }
 
