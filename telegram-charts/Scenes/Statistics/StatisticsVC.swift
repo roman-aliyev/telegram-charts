@@ -1,27 +1,39 @@
 //
-//  StatisticsView.swift
+//  StatisticsVC.swift
 //  telegram-charts
 //
-//  Created by Roman Aliyev on 4/30/19.
+//  Created by Roman Aliyev on 3/12/19.
 //  Copyright © 2019 Roman Aliyev. All rights reserved.
 //
 
 import UIKit
 
-class StatisticsView: UIView {
+class StatisticsVC: UIViewController {
     let viewModel = StatisticsViewModel()
     @IBOutlet private weak var tableView: UITableView!
     
-    var delegate: (ChartViewDelegate & LegendItemDelegate)!
+    var delegate: (ChartViewDelegate & LegendItemDelegate & StatisticsViewDelegate)!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
+    
+    var wasAppearedBefore = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.delegate.viewWillAppear(initially: !self.wasAppearedBefore)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.wasAppearedBefore = true
+    }
 }
 
-extension StatisticsView: UITableViewDelegate {
+extension StatisticsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -36,7 +48,7 @@ extension StatisticsView: UITableViewDelegate {
     }
 }
 
-extension StatisticsView: UITableViewDataSource {
+extension StatisticsVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tableView(tableView, heightForRowAt: indexPath)
     }
@@ -69,7 +81,7 @@ extension StatisticsView: UITableViewDataSource {
     }
 }
 
-extension StatisticsView: StatisticsViewProtocol {
+extension StatisticsVC: StatisticsViewProtocol {
     func updateAllSections() {
         self.tableView.reloadData()
     }

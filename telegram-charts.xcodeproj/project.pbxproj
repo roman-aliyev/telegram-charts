@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		302BC64C2238062700E621A9 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302BC64B2238062700E621A9 /* StatisticsViewModel.swift */; };
+		302BC64C2238062700E621A9 /* StatisticsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302BC64B2238062700E621A9 /* StatisticsVM.swift */; };
 		302BC65222383F4700E621A9 /* LegendItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302BC65122383F4700E621A9 /* LegendItemView.swift */; };
 		30435BD822414BD900684A7A /* ChartObjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30435BD722414BD900684A7A /* ChartObjectRepository.swift */; };
 		30435BDC22415DFE00684A7A /* DataSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30435BDB22415DFE00684A7A /* DataSeries.swift */; };
@@ -19,23 +19,22 @@
 		3071185A22392C7E009E9413 /* StatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3071185922392C7E009E9413 /* StatisticsPresenter.swift */; };
 		3071185E22392FC8009E9413 /* StatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3071185D22392FC8009E9413 /* StatisticsInteractor.swift */; };
 		30711861223976EE009E9413 /* ChartObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30711860223976EE009E9413 /* ChartObject.swift */; };
-		30889FBF228B18E30056BFA1 /* StatisticsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30889FBE228B18E30056BFA1 /* StatisticsBuilder.swift */; };
+		30889FBF228B18E30056BFA1 /* StatisticsVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30889FBE228B18E30056BFA1 /* StatisticsVCFactory.swift */; };
 		3095783B2237F083008C861E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3095783A2237F083008C861E /* AppDelegate.swift */; };
-		3095783D2237F083008C861E /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3095783C2237F083008C861E /* StatisticsViewController.swift */; };
+		3095783D2237F083008C861E /* StatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3095783C2237F083008C861E /* StatisticsVC.swift */; };
 		309578422237F084008C861E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 309578412237F084008C861E /* Assets.xcassets */; };
 		309578452237F084008C861E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309578432237F084008C861E /* LaunchScreen.storyboard */; };
 		309CF3292278B3D30032A105 /* RouteToAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309CF3282278B3D30032A105 /* RouteToAlert.swift */; };
-		309CF32B2278B4B40032A105 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309CF32A2278B4B40032A105 /* StatisticsView.swift */; };
 		30A1809722482C1C00BA9813 /* ChartView+ChartViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1809622482C1C00BA9813 /* ChartView+ChartViewProtocol.swift */; };
 		30A18099224830D900BA9813 /* CGPath+Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A18098224830D900BA9813 /* CGPath+Primitive.swift */; };
-		30A1809B224844FF00BA9813 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30A1809A224844FF00BA9813 /* Statistics.storyboard */; };
+		30A1809B224844FF00BA9813 /* StatisticsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30A1809A224844FF00BA9813 /* StatisticsVC.storyboard */; };
 		30C051BC2244192900A886A2 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C051BB2244192900A886A2 /* Throttler.swift */; };
 		30ED0AF5223BE751006B7DED /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ED0AF4223BE751006B7DED /* ChartView.swift */; };
 		30ED0AFB223C1D6C006B7DED /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ED0AFA223C1D6C006B7DED /* CanvasView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		302BC64B2238062700E621A9 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
+		302BC64B2238062700E621A9 /* StatisticsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsVM.swift; sourceTree = "<group>"; };
 		302BC65122383F4700E621A9 /* LegendItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegendItemView.swift; sourceTree = "<group>"; };
 		30435BD722414BD900684A7A /* ChartObjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartObjectRepository.swift; sourceTree = "<group>"; };
 		30435BDB22415DFE00684A7A /* DataSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSeries.swift; sourceTree = "<group>"; };
@@ -47,18 +46,17 @@
 		3071185922392C7E009E9413 /* StatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPresenter.swift; sourceTree = "<group>"; };
 		3071185D22392FC8009E9413 /* StatisticsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsInteractor.swift; sourceTree = "<group>"; };
 		30711860223976EE009E9413 /* ChartObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartObject.swift; sourceTree = "<group>"; };
-		30889FBE228B18E30056BFA1 /* StatisticsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsBuilder.swift; sourceTree = "<group>"; };
+		30889FBE228B18E30056BFA1 /* StatisticsVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsVCFactory.swift; sourceTree = "<group>"; };
 		309578372237F083008C861E /* telegram-charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "telegram-charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3095783A2237F083008C861E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3095783C2237F083008C861E /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
+		3095783C2237F083008C861E /* StatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsVC.swift; sourceTree = "<group>"; };
 		309578412237F084008C861E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		309578442237F084008C861E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		309578462237F084008C861E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		309CF3282278B3D30032A105 /* RouteToAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteToAlert.swift; sourceTree = "<group>"; };
-		309CF32A2278B4B40032A105 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		30A1809622482C1C00BA9813 /* ChartView+ChartViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChartView+ChartViewProtocol.swift"; sourceTree = "<group>"; };
 		30A18098224830D900BA9813 /* CGPath+Primitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+Primitive.swift"; sourceTree = "<group>"; };
-		30A1809A224844FF00BA9813 /* Statistics.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Statistics.storyboard; sourceTree = "<group>"; };
+		30A1809A224844FF00BA9813 /* StatisticsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StatisticsVC.storyboard; sourceTree = "<group>"; };
 		30C051BB2244192900A886A2 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		30ED0AF4223BE751006B7DED /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		30ED0AFA223C1D6C006B7DED /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
@@ -89,13 +87,12 @@
 			isa = PBXGroup;
 			children = (
 				302BC655223853A200E621A9 /* Components */,
-				30A1809A224844FF00BA9813 /* Statistics.storyboard */,
-				309CF32A2278B4B40032A105 /* StatisticsView.swift */,
-				3095783C2237F083008C861E /* StatisticsViewController.swift */,
-				302BC64B2238062700E621A9 /* StatisticsViewModel.swift */,
+				30A1809A224844FF00BA9813 /* StatisticsVC.storyboard */,
+				3095783C2237F083008C861E /* StatisticsVC.swift */,
+				302BC64B2238062700E621A9 /* StatisticsVM.swift */,
 				3071185922392C7E009E9413 /* StatisticsPresenter.swift */,
 				3071185D22392FC8009E9413 /* StatisticsInteractor.swift */,
-				30889FBE228B18E30056BFA1 /* StatisticsBuilder.swift */,
+				30889FBE228B18E30056BFA1 /* StatisticsVCFactory.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -240,7 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				309578452237F084008C861E /* LaunchScreen.storyboard in Resources */,
-				30A1809B224844FF00BA9813 /* Statistics.storyboard in Resources */,
+				30A1809B224844FF00BA9813 /* StatisticsVC.storyboard in Resources */,
 				309578422237F084008C861E /* Assets.xcassets in Resources */,
 				3071185822392C1E009E9413 /* chart_data.json in Resources */,
 			);
@@ -254,21 +251,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				30A1809722482C1C00BA9813 /* ChartView+ChartViewProtocol.swift in Sources */,
-				309CF32B2278B4B40032A105 /* StatisticsView.swift in Sources */,
 				30435BDC22415DFE00684A7A /* DataSeries.swift in Sources */,
 				30435BD822414BD900684A7A /* ChartObjectRepository.swift in Sources */,
 				30435BE2224260D600684A7A /* ChartObjectSource.swift in Sources */,
-				3095783D2237F083008C861E /* StatisticsViewController.swift in Sources */,
+				3095783D2237F083008C861E /* StatisticsVC.swift in Sources */,
 				30C051BC2244192900A886A2 /* Throttler.swift in Sources */,
 				30435BE422429DAF00684A7A /* UIColor+Primitives.swift in Sources */,
 				3071185E22392FC8009E9413 /* StatisticsInteractor.swift in Sources */,
 				30ED0AF5223BE751006B7DED /* ChartView.swift in Sources */,
 				30435BE022425C8B00684A7A /* ChartData.swift in Sources */,
-				30889FBF228B18E30056BFA1 /* StatisticsBuilder.swift in Sources */,
+				30889FBF228B18E30056BFA1 /* StatisticsVCFactory.swift in Sources */,
 				3095783B2237F083008C861E /* AppDelegate.swift in Sources */,
 				3043E68422455A5E00E461FB /* PrimaryCanvasView.swift in Sources */,
 				3071185A22392C7E009E9413 /* StatisticsPresenter.swift in Sources */,
-				302BC64C2238062700E621A9 /* StatisticsViewModel.swift in Sources */,
+				302BC64C2238062700E621A9 /* StatisticsVM.swift in Sources */,
 				309CF3292278B3D30032A105 /* RouteToAlert.swift in Sources */,
 				30711861223976EE009E9413 /* ChartObject.swift in Sources */,
 				302BC65222383F4700E621A9 /* LegendItemView.swift in Sources */,

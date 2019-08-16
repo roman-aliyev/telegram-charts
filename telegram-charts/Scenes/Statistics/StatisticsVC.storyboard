@@ -13,8 +13,8 @@
         <!--Statistics-->
         <scene sceneID="LXa-Ps-5rw">
             <objects>
-                <viewController title="Statistics" id="ovy-DF-Acl" customClass="StatisticsViewController" customModule="telegram_charts" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="N5Y-fm-EFY" customClass="StatisticsView" customModule="telegram_charts" customModuleProvider="target">
+                <viewController title="Statistics" id="ovy-DF-Acl" customClass="StatisticsVC" customModule="telegram_charts" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N5Y-fm-EFY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -97,12 +97,9 @@
                             <constraint firstAttribute="bottom" secondItem="AZZ-Rm-GUX" secondAttribute="bottom" id="UoR-6v-Gff"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="klC-Sy-Zok"/>
-                        <connections>
-                            <outlet property="tableView" destination="AZZ-Rm-GUX" id="AGA-iG-6e0"/>
-                        </connections>
                     </view>
                     <connections>
-                        <outlet property="statisticsView" destination="N5Y-fm-EFY" id="8v6-b1-EGt"/>
+                        <outlet property="tableView" destination="AZZ-Rm-GUX" id="1CJ-eL-cvK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SBH-to-RCE" userLabel="First Responder" sceneMemberID="firstResponder"/>
