@@ -1,11 +1,3 @@
-//
-//  ChartObjectRepository.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/19/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import Foundation
 
 enum GeneralError: Error {
@@ -22,14 +14,14 @@ class ChartObjectRepository: ChartObjectRepositoryProtocol {
     var chartObjects = [ChartObject]()
     
     func getAllObjects() -> [ChartObject] {
-        return self.chartObjects
+        return chartObjects
     }
     
     func getObject(by id: String) -> ChartObject? {
-        return self.chartObjects.first { $0.id == id }
+        return chartObjects.first { $0.id == id }
     }
     
     func save(_ chartObject: ChartObject) {
-        self.chartObjects.append(chartObject)
+        chartObjects.append(chartObject)
     }
 }

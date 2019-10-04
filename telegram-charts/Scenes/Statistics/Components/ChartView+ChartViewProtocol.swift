@@ -18,38 +18,44 @@ extension ChartView: ChartViewProtocol {
     }
     
     func transformPrimaryCanvasShapes(animated: Bool) {
-        guard let chartModel = self.chartModel else {
+        guard let chartModel = chartModel else {
             return
         }
+        
         if !animated {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
         }
+        
         for row in 0..<chartModel.legendItems.count {
-            self.primaryCanvas.shapeLayers[row].setAffineTransform(chartModel.primaryCanvasTransform)
+            primaryCanvas.shapeLayers[row].setAffineTransform(chartModel.primaryCanvasTransform)
             let legendItemModel = chartModel.legendItems[row]
-            self.primaryCanvas.shapeLayers[row].opacity = legendItemModel.isChecked ? 1 : 0
-            self.primaryCanvas.shapeLayers[row].lineWidth = (1 / chartModel.primaryCanvasTransform.a + 1 / chartModel.primaryCanvasTransform.d) / 2
+            primaryCanvas.shapeLayers[row].opacity = legendItemModel.isChecked ? 1 : 0
+            primaryCanvas.shapeLayers[row].lineWidth = (1 / chartModel.primaryCanvasTransform.a + 1 / chartModel.primaryCanvasTransform.d) / 2
         }
+        
         if !animated {
             CATransaction.commit()
         }
     }
     
     func transformSecondaryCanvasShapes(animated: Bool) {
-        guard let chartModel = self.chartModel else {
+        guard let chartModel = chartModel else {
             return
         }
+        
         if !animated {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
         }
+        
         for row in 0..<chartModel.legendItems.count {
-            self.secondaryCanvas.shapeLayers[row].setAffineTransform(chartModel.secondaryCanvasTransform)
+            secondaryCanvas.shapeLayers[row].setAffineTransform(chartModel.secondaryCanvasTransform)
             let legendItemModel = chartModel.legendItems[row]
-            self.secondaryCanvas.shapeLayers[row].opacity = legendItemModel.isChecked ? 1 : 0
-            self.secondaryCanvas.shapeLayers[row].lineWidth = (1 / chartModel.secondaryCanvasTransform.a + 1 / chartModel.secondaryCanvasTransform.d) / 2
+            secondaryCanvas.shapeLayers[row].opacity = legendItemModel.isChecked ? 1 : 0
+            secondaryCanvas.shapeLayers[row].lineWidth = (1 / chartModel.secondaryCanvasTransform.a + 1 / chartModel.secondaryCanvasTransform.d) / 2
         }
+        
         if !animated {
             CATransaction.commit()
         }

@@ -1,11 +1,3 @@
-//
-//  PrimaryCanvasView.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/22/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import UIKit
 
 protocol PrimaryCanvasViewDelegate {
@@ -17,23 +9,23 @@ class PrimaryCanvasView: CanvasView, UIGestureRecognizerDelegate {
     
     var selectorLeftOffset: CGFloat {
         get {
-            return self.leftDimmingViewWidthConstraint.constant
+            return leftDimmingViewWidthConstraint.constant
         }
         set {
-            self.leftDimmingViewWidthConstraint.constant = newValue
+            leftDimmingViewWidthConstraint.constant = newValue
         }
     }
     var selectorRightOffset: CGFloat {
         get {
-            return self.rightDimmingViewWidthConstraint.constant
+            return rightDimmingViewWidthConstraint.constant
         }
         set {
-            self.rightDimmingViewWidthConstraint.constant = newValue
+            rightDimmingViewWidthConstraint.constant = newValue
         }
     }
     
-    private lazy var leftDimmingViewWidthConstraint = self.leftDimmingView.widthAnchor.constraint(equalToConstant: 100)
-    private lazy var rightDimmingViewWidthConstraint = self.rightDimmingView.widthAnchor.constraint(equalToConstant: 100)
+    private lazy var leftDimmingViewWidthConstraint = leftDimmingView.widthAnchor.constraint(equalToConstant: 100)
+    private lazy var rightDimmingViewWidthConstraint = rightDimmingView.widthAnchor.constraint(equalToConstant: 100)
     
     private let leftDimmingView = UIView()
     private let selectorView = SelectorView()
@@ -42,23 +34,23 @@ class PrimaryCanvasView: CanvasView, UIGestureRecognizerDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.leftDimmingView.backgroundColor = UIColor(white: 0.95, alpha: 0.7)
-        self.addSubview(self.leftDimmingView)
+        leftDimmingView.backgroundColor = UIColor(white: 0.95, alpha: 0.7)
+        addSubview(self.leftDimmingView)
         
-        self.rightDimmingView.backgroundColor = UIColor(white: 0.95, alpha: 0.7)
-        self.addSubview(self.rightDimmingView)
+        rightDimmingView.backgroundColor = UIColor(white: 0.95, alpha: 0.7)
+        addSubview(self.rightDimmingView)
         
-        self.addSubview(selectorView)
+        addSubview(selectorView)
         
         var constraints = [
-            self.leftDimmingViewWidthConstraint,
-            self.rightDimmingViewWidthConstraint
+            leftDimmingViewWidthConstraint,
+            rightDimmingViewWidthConstraint
         ]
         
         let views = [
-            "leftDimmingView": self.leftDimmingView,
-            "selectorView": self.selectorView,
-            "rightDimmingView": self.rightDimmingView
+            "leftDimmingView": leftDimmingView,
+            "selectorView": selectorView,
+            "rightDimmingView": rightDimmingView
         ]
         
         views.values.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -74,10 +66,10 @@ class PrimaryCanvasView: CanvasView, UIGestureRecognizerDelegate {
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(gestureRecognizerGotPanEvent(recognizer:)))
         panGestureRecognizer.delegate = self
-        self.addGestureRecognizer(panGestureRecognizer)
+        addGestureRecognizer(panGestureRecognizer)
     }
     
-    var l: CGFloat = 0, r: CGFloat = 0
+    private var l: CGFloat = 0, r: CGFloat = 0
     
     private struct SelectorMovingState: OptionSet {
         let rawValue: Int
@@ -98,45 +90,46 @@ class PrimaryCanvasView: CanvasView, UIGestureRecognizerDelegate {
         let translation = recognizer.translation(in: self)
         
         if recognizer.state == .began {
-            self.l = self.selectorLeftOffset
-            self.r = self.selectorRightOffset
-            if location.x < self.selectorView.frame.minX + 22 {
-                self.selectorMovingState = .left
+            l = self.selectorLeftOffset
+            r = self.selectorRightOffset
+            if location.x < selectorView.frame.minX + 22 {
+                selectorMovingState = .left
             } else if location.x > self.selectorView.frame.maxX - 22 {
-                self.selectorMovingState = .right
+                selectorMovingState = .right
             } else {
-                self.selectorMovingState = [.left, .right]
+                selectorMovingState = [.left, .right]
             }
         }
         
-        if self.selectorMovingState == .left {
-            self.selectorLeftOffset = min(self.l + translation.x, self.bounds.width - self.selectorRightOffset - 88)
-        } else if self.selectorMovingState == .right {
-            self.selectorRightOffset = min(self.r - translation.x, self.bounds.width - self.selectorLeftOffset - 88)
-        } else if self.selectorMovingState == [.left, .right] {
-            self.selectorLeftOffset = self.l + translation.x
-            self.selectorRightOffset = self.r - translation.x
+        if selectorMovingState == .left {
+            selectorLeftOffset = min(self.l + translation.x, bounds.width - selectorRightOffset - 88)
+        } else if selectorMovingState == .right {
+            selectorRightOffset = min(self.r - translation.x, bounds.width - selectorLeftOffset - 88)
+        } else if selectorMovingState == [.left, .right] {
+            selectorLeftOffset = l + translation.x
+            selectorRightOffset = r - translation.x
         }
         
-        if self.selectorLeftOffset < 0 {
-            if self.selectorMovingState.contains(.right) {
-                self.selectorRightOffset += self.selectorLeftOffset
+        if selectorLeftOffset < 0 {
+            if selectorMovingState.contains(.right) {
+                selectorRightOffset += selectorLeftOffset
             }
-            self.selectorLeftOffset = 0
-        } else if self.selectorRightOffset < 0 {
-            if self.selectorMovingState.contains(.left) {
-                self.selectorLeftOffset += self.selectorRightOffset
+            selectorLeftOffset = 0
+        } else if selectorRightOffset < 0 {
+            if selectorMovingState.contains(.left) {
+                selectorLeftOffset += selectorRightOffset
             }
-            self.selectorRightOffset = 0
+            selectorRightOffset = 0
         }
-        self.setNeedsLayout()
-        self.delegate?.selectionDidChange(sender: self, leftOffset: self.selectorLeftOffset, rightOffset: self.selectorRightOffset)
+        
+        setNeedsLayout()
+        delegate?.selectionDidChange(sender: self, leftOffset: selectorLeftOffset, rightOffset: selectorRightOffset)
     }
     
     override func configure(legendItems: [StatisticsViewModel.LegendItem]) {
         super.configure(legendItems: legendItems)
-        self.bringSubviewToFront(self.leftDimmingView)
-        self.bringSubviewToFront(self.rightDimmingView)
+        bringSubviewToFront(leftDimmingView)
+        bringSubviewToFront(rightDimmingView)
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -148,7 +141,8 @@ class PrimaryCanvasView: CanvasView, UIGestureRecognizerDelegate {
             return false
         }
         let location = panGestureRecognizer.location(in: self)
-        return self.selectorView.frame.insetBy(dx: -22, dy: 0).contains(location)
+        
+        return selectorView.frame.insetBy(dx: -22, dy: 0).contains(location)
     }
 }
 
@@ -158,17 +152,18 @@ private class SelectorView: UIView {
         shapeLayer.lineWidth = 0
         shapeLayer.fillColor = UIColor(white: 0.9, alpha: 1).cgColor
         shapeLayer.strokeColor = nil
-        self.layer.addSublayer(shapeLayer)
+        layer.addSublayer(shapeLayer)
+        
         return shapeLayer
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
         let path = CGMutablePath()
-        path.addRect(CGRect(x: 0, y: 0, width: self.bounds.width, height: 1))
-        path.addRect(CGRect(x: 0, y: self.bounds.height - 1, width: self.bounds.width, height: 1))
-        path.addRect(CGRect(x: 0, y: 1, width: 5, height: self.bounds.height - 2))
-        path.addRect(CGRect(x: self.bounds.width - 5, y: 1, width: 5, height: self.bounds.height - 2))
-        self.shapeLayer.path = path
+        path.addRect(CGRect(x: 0, y: 0, width: bounds.width, height: 1))
+        path.addRect(CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1))
+        path.addRect(CGRect(x: 0, y: 1, width: 5, height: bounds.height - 2))
+        path.addRect(CGRect(x: bounds.width - 5, y: 1, width: 5, height: bounds.height - 2))
+        shapeLayer.path = path
     }
 }

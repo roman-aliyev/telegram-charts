@@ -1,11 +1,3 @@
-//
-//  Throttler.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/21/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import Foundation
 
 class Throttler {
@@ -20,15 +12,15 @@ class Throttler {
     }
     
     func execute(_ block: @escaping () -> Void) {
-        self.workItem.cancel()
+        workItem.cancel()
         
-        self.workItem = DispatchWorkItem() {
+        workItem = DispatchWorkItem() {
             [weak self] in
             self?.previousRun = Date()
             block()
         }
 
-        let delay = abs(self.previousRun.timeIntervalSinceNow) > self.minimumDelay ? 0 : self.minimumDelay
-        self.queue.asyncAfter(deadline: .now() + Double(delay), execute: self.workItem)
+        let delay = abs(previousRun.timeIntervalSinceNow) > minimumDelay ? 0 : minimumDelay
+        queue.asyncAfter(deadline: .now() + Double(delay), execute: workItem)
     }
 }

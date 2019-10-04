@@ -1,12 +1,31 @@
-//
-//  StatisticsVC.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/12/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import UIKit
+
+protocol StatisticsViewProtocol: class {
+    var viewModel: StatisticsViewModel { get }
+    func updateAllSections()
+    func update(chartViewShapesAt section: Int)
+    func chartView(at section: Int) -> ChartViewProtocol?
+}
+
+protocol ChartViewProtocol {
+    var primaryCanvasSize: CGSize { get }
+    var secondaryCanvasSize: CGSize { get }
+    func transformPrimaryCanvasShapes(animated: Bool)
+    func transformSecondaryCanvasShapes(animated: Bool)
+}
+
+protocol StatisticsViewDelegate {
+    func viewWillAppear(initially: Bool)
+}
+
+protocol ChartViewDelegate {
+    func chartViewDidLayoutSubViews(chartId: String)
+    func chartViewDidChangeSelection(chartId: String)
+}
+
+protocol LegendItemDelegate {
+    func legendItemViewGotTapEvent(chartId: String)
+}
 
 class StatisticsVC: UIViewController {
     let viewModel = StatisticsViewModel()
@@ -24,12 +43,12 @@ class StatisticsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.delegate.viewWillAppear(initially: !self.wasAppearedBefore)
+        delegate.viewWillAppear(initially: !wasAppearedBefore)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.wasAppearedBefore = true
+        wasAppearedBefore = true
     }
 }
 
@@ -58,15 +77,15 @@ extension StatisticsVC: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.charts.count
+        return viewModel.charts.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.charts[section].legendItems.count + 1
+        return viewModel.charts[section].legendItems.count + 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.viewModel.charts[section].title
+        return viewModel.charts[section].title
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,7 +93,7 @@ extension StatisticsVC: UITableViewDataSource {
             return tableView.dequeueReusableCell(withIdentifier: "ChartView", for: indexPath)
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LegendItemView", for: indexPath)
-            let legendItem = self.viewModel.charts[indexPath.section].legendItems[indexPath.row - 1]
+            let legendItem = viewModel.charts[indexPath.section].legendItems[indexPath.row - 1]
             (cell as? LegendItemView)?.bind(to: legendItem, delegate: self.delegate)
             return cell
         }
@@ -83,21 +102,16 @@ extension StatisticsVC: UITableViewDataSource {
 
 extension StatisticsVC: StatisticsViewProtocol {
     func updateAllSections() {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     func chartView(at section: Int) -> ChartViewProtocol? {
-        return self.tableView.cellForRow(at: IndexPath(item: 0, section: section)) as? ChartViewProtocol
+        return tableView.cellForRow(at: IndexPath(item: 0, section: section)) as? ChartViewProtocol
     }
     
     func update(chartViewShapesAt section: Int) {
-        (
-            self.tableView.cellForRow(
-                at: IndexPath(item: 0, section: section)
-                ) as? ChartView
-            )?.bind(
-                to: self.viewModel.charts[section],
-                delegate: self.delegate
-        )
+        let cellView = tableView.cellForRow(at: IndexPath(item: 0, section: section))
+        let chartView = cellView as? ChartView
+        chartView?.bind(to: self.viewModel.charts[section], delegate: self.delegate)
     }
 }

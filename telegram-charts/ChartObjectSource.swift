@@ -1,11 +1,3 @@
-//
-//  ChartObjectSource.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/20/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import Foundation
 
 enum ChartDataError: Error {
@@ -105,6 +97,7 @@ private class ChartDataFromJson: Decodable {
         
         while !columnsContainer.isAtEnd {
             var container = try columnsContainer.nestedUnkeyedContainer()
+            
             if container.count ?? 0 > 0 {
                 let id = try container.decode(String.self)
                 

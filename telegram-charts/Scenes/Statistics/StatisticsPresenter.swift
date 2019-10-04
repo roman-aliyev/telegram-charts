@@ -1,26 +1,12 @@
-//
-//  StatisticsPresenter.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/13/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import UIKit
 import CoreGraphics
 
-protocol StatisticsViewProtocol: class {
-    var viewModel: StatisticsViewModel { get }
-    func updateAllSections()
-    func update(chartViewShapesAt section: Int)
-    func chartView(at section: Int) -> ChartViewProtocol?
-}
-
-protocol ChartViewProtocol {
-    var primaryCanvasSize: CGSize { get }
-    var secondaryCanvasSize: CGSize { get }
-    func transformPrimaryCanvasShapes(animated: Bool)
-    func transformSecondaryCanvasShapes(animated: Bool)
+protocol StatisticsPresenterProtocol {
+    func present(chartObjects: [ChartObject])
+    func present(chartObject: ChartObject)
+    func scale(primaryCanvasShapesBy id: String, animated: Bool)
+    func scale(secondaryCanvasShapesBy id: String, animated: Bool)
+    func presentAlert(about error: StatisticsControllerError)
 }
 
 class StatisticsPresenter {
@@ -37,27 +23,27 @@ class StatisticsPresenter {
 }
 
 extension StatisticsPresenter: StatisticsPresenterProtocol {
-    func presentAlert(about error: StatisticsInteractorError) {
+    func presentAlert(about error: StatisticsControllerError) {
         switch error {
         case .loadDataError(let innerError):
             switch innerError {
             case ChartDataError.fileCouldNotBeLocated(let fileName):
-                self.routeToAlert.presentAlert(
+                routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "\"\(fileName)\" could not be located"
                 )
             case ChartDataError.urlCanNotBeRead(let url):
-                self.routeToAlert.presentAlert(
+                routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "Can't read \"\(url)\""
                 )
             case ChartDataError.unsupportedDataFormat(let url):
-                self.routeToAlert.presentAlert(
+                routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "Unsupported format of \"\(url)\""
                 )
             default:
-                self.routeToAlert.presentAlert(
+                routeToAlert.presentAlert(
                     "Unable to load the chart data",
                     message: "The application encountered an unexpected error"
                 )
@@ -82,17 +68,17 @@ extension StatisticsPresenter: StatisticsPresenterProtocol {
             )
             chart.selectorRightOffset = 0
             chart.selectorLeftOffset = UIScreen.main.bounds.width - 150
-            self.statisticsView.viewModel.charts.append(chart)
+            statisticsView.viewModel.charts.append(chart)
         }
-        self.statisticsView.updateAllSections()
+        statisticsView.updateAllSections()
     }
     
     func present(chartObject: ChartObject) {
-        let viewModel = self.statisticsView.viewModel
+        let viewModel = statisticsView.viewModel
         guard let section = (viewModel.charts.firstIndex { $0.id == chartObject.id }) else {
             return
         }
-        guard let chartView = self.statisticsView.chartView(at: section) else {
+        guard let chartView = statisticsView.chartView(at: section) else {
             return
         }
         let primaryCanvasSize = chartView.primaryCanvasSize
@@ -142,15 +128,15 @@ extension StatisticsPresenter: StatisticsPresenterProtocol {
         }
         viewModel.charts[section].primaryCanvasPaths = primaryCanvasPaths
         viewModel.charts[section].secondaryCanvasPaths = secondaryCanvasPaths
-        self.statisticsView.update(chartViewShapesAt: section)
+        statisticsView.update(chartViewShapesAt: section)
     }
     
     func scale(primaryCanvasShapesBy id: String, animated: Bool) {
-        let viewModel = self.statisticsView.viewModel
+        let viewModel = statisticsView.viewModel
         guard let section = (viewModel.charts.firstIndex { $0.id == id }) else {
             return
         }
-        guard let chartView = self.statisticsView.chartView(at: section) else {
+        guard let chartView = statisticsView.chartView(at: section) else {
             return
         }
         let primaryCanvasSize = chartView.primaryCanvasSize
@@ -182,11 +168,11 @@ extension StatisticsPresenter: StatisticsPresenterProtocol {
     }
     
     func scale(secondaryCanvasShapesBy id: String, animated: Bool) {
-        let viewModel = self.statisticsView.viewModel
+        let viewModel = statisticsView.viewModel
         guard let section = (viewModel.charts.firstIndex { $0.id == id }) else {
             return
         }
-        guard let chartView = self.statisticsView.chartView(at: section) else {
+        guard let chartView = statisticsView.chartView(at: section) else {
             return
         }
         let secondaryCanvasSize = chartView.secondaryCanvasSize
@@ -202,7 +188,7 @@ extension StatisticsPresenter: StatisticsPresenterProtocol {
             if let boundingBox = chartModel.secondaryCanvasPaths?[row].boundingBox(
                 minX: chartModel.selectorLeftOffset,
                 maxX: secondaryCanvasSize.width - chartModel.selectorRightOffset
-                ) {
+            ) {
                 secondaryCanvasShapeBoundingBox = secondaryCanvasShapeBoundingBox.union(boundingBox)
             }
         }
@@ -211,8 +197,8 @@ extension StatisticsPresenter: StatisticsPresenterProtocol {
             scaleX: secondaryCanvasSize.width / secondaryCanvasShapeBoundingBox.width,
             y: secondaryCanvasSize.height / secondaryCanvasShapeBoundingBox.height
         ).translatedBy(
-                x: -secondaryCanvasShapeBoundingBox.minX,
-                y: -secondaryCanvasShapeBoundingBox.minY
+            x: -secondaryCanvasShapeBoundingBox.minX,
+            y: -secondaryCanvasShapeBoundingBox.minY
         )
         
         chartView.transformSecondaryCanvasShapes(animated: animated)

@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/12/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
@@ -17,6 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         window.rootViewController = UINavigationController(rootViewController: StatisticsVCFactory().createStatisticsVC())
         window.makeKeyAndVisible()
+        
         return true
     }
 }

@@ -1,11 +1,3 @@
-//
-//  DataSeries.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/19/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import Foundation
 
 class DataSeries<T> {
@@ -28,6 +20,6 @@ class DataSeries<T> {
     }
     
     deinit {
-        self.data.deallocate()
+        data.deallocate()
     }
 }

@@ -1,11 +1,3 @@
-//
-//  UIColor+Primitives.swift
-//  telegram-charts
-//
-//  Created by Roman Aliyev on 3/20/19.
-//  Copyright © 2019 Roman Aliyev. All rights reserved.
-//
-
 import UIKit
 
 extension UIColor {
