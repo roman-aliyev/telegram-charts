@@ -44,8 +44,7 @@ extension StatisticsController: ChartViewDelegate {
     }
     
     func chartViewDidChangeSelection(chartId: String) {
-        throttler.execute {
-            [weak self] in
+        throttler.execute { [weak self] in
             self?.presenter.scale(secondaryCanvasShapesBy: chartId, animated: true)
         }
     }

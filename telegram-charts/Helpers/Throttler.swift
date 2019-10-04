@@ -14,8 +14,7 @@ class Throttler {
     func execute(_ block: @escaping () -> Void) {
         workItem.cancel()
         
-        workItem = DispatchWorkItem() {
-            [weak self] in
+        workItem = DispatchWorkItem() { [weak self] in
             self?.previousRun = Date()
             block()
         }
