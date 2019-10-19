@@ -1,6 +1,6 @@
 import UIKit
 
-protocol StatisticsViewProtocol: class {
+protocol StatisticsViewProtocol: AnyObject {
     var viewModel: StatisticsViewModel { get }
     func updateAllSections()
     func update(chartViewShapesAt section: Int)
